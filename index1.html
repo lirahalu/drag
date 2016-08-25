@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -32,21 +32,6 @@
             left: 300px;
             background: blue;
         }
-        .c {
-            top: 100px;
-            left: 100px;
-            background: red;
-        }
-        .d {
-            top: 100px;
-            left: 100px;
-            background: blue;
-        }
-        .e {
-            top: 100px;
-            left: 100px;
-            background: green;
-        }
         .wrap {
             float: left;
             position: relative;
@@ -58,18 +43,9 @@
 </head>
 <body>
 <div class="wrap">
-    <div class="exam b"></div>
-    <div class="exam"></div>
-    <div class="exam a"></div>
-</div>
-<div class="wrap">
-    <div class="exam c"></div>
-</div>
-<div class="wrap">
-    <div class="exam d"></div>
-</div>
-<div class="wrap">
-    <div class="exam e"></div>
+    <div class="exam a">11</div>
+    <div class="exam">22</div>
+    <div class="exam b">33</div>
 </div>
 <script src="jquery-2.2.0.min.js"></script>
 <script type="text/javascript">
@@ -80,25 +56,28 @@
                         _isMove = false,
                         _x = 0,
                         _y = 0,
-                        _width = $(this).width(),
-                        _height = $(this).height(),
+                        _width = oThis.width(),
+                        _height = oThis.height(),
                         _winWidth = oThis.parent().width(),
                         _winHeight = oThis.parent().height();
-                $(this).mousedown(function(e) {
-                    console.log(_winHeight);
+                oThis.mousedown(function(e) {
                     _isMove = true;
+                    //鼠标距离对象左上角的距离=鼠标的坐标-对象的坐标
                     _x = e.clientX - parseInt($(this).css("left"));
                     _y = e.clientY - parseInt($(this).css("top"));
                 });
                 $(document).mousemove(function(e) {
                     if( _isMove ) {
+                        //理论对象的坐标=鼠标的坐标-鼠标距离对象左上角的距离
                         var x = e.clientX - _x ;
                         var y = e.clientY - _y ;
+                        /*超出边界则留在边界内*/
                         x = Math.max(0, Math.min(_winWidth - _width, x));
                         y = Math.max(0, Math.min(_winHeight - _height, y));
                         oThis.css({"left":parseInt(x), "top":parseInt(y)});
                     }
-                }).mouseup(function() {
+                });
+                oThis.mouseup(function() {
                     _isMove = false;
                 });
             });
